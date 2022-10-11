@@ -15,7 +15,7 @@ import { SearchMinor } from "@shopify/polaris-icons";
 import { useNavigate } from "react-router-dom";
 
 const Compo1 = (props) => {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const [suggession, setSuggession] = useState([]);
   const [showProfileDiv, setShowProfileDiv] = useState(false);
   const [profileBox, setProfileBox] = useState({});
@@ -39,7 +39,7 @@ const Compo1 = (props) => {
       const data = await fetch(url, {
         method: "GET",
         headers: {
-          authorization :"Bearer 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"
+          authorization: "Bearer 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",
         },
       });
       const result = await data.json();
@@ -61,19 +61,31 @@ const Compo1 = (props) => {
 
   React.useEffect(() => {
     if (selectedOptions.length !== 0) {
-      fetch(`https://api.github.com/users/${selectedOptions}`, {
+      // fetch(`https://api.github.com/users/${selectedOptions}`, {
+      //   headers: {
+      //     authorization: "Bearer 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",
+      //   },
+      // })
+      //   .then((result) => result.json())
+      //   .then((res) => {
+      //     setProfileBox(res);
+      //   })
+      //   .then(() => setShowProfileDiv(true));
+      const fetchdata = async()=>{
+        const fet = await fetch(`https://api.github.com/users/${selectedOptions}`, {
         headers: {
           authorization: "Bearer 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",
         },
       })
-        .then((result) => result.json())
-        .then((res) => {setProfileBox(res)})
-        .then(() => setShowProfileDiv(true))
-        // .then((res) => {props.personalpro(res)});
+      const response = await fet.json();
+      setProfileBox(response);
+      setShowProfileDiv(true);
+      props.personalpro()
+      }
     }
   }, [selectedOptions]);
 
-console.log("props.personalpro",props.personalpro)
+  console.log("props.personalpro", props.personalpro);
 
   const showprofile = (e) => {
     window.location.href = e;
@@ -178,7 +190,7 @@ console.log("props.personalpro",props.personalpro)
                             </div>
                             <Button
                               onClick={() => {
-                                navigate("/profile")
+                                navigate("/profile");
                               }}
                               fullWidth
                             >
