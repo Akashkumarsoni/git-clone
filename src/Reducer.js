@@ -1,8 +1,9 @@
-import { ALLPROFILES, USERPROFILE } from "./Constants";
+import { ALLPROFILES, PERSONALPROFILE, USERPROFILE } from "./Constants";
 
 const initialstate = {
   allprofiles: [],
   userprofile: [],
+  personalprofile:{}
 };
 
 export const reducerss = (state = initialstate, action) => {
@@ -17,6 +18,12 @@ export const reducerss = (state = initialstate, action) => {
     return {
       ...state,
       userprofile: action.changed,
+    };
+  }
+  if (action.type === PERSONALPROFILE) {
+    return {
+      ...state,
+      personalprofile: action.changed,
     };
   }
   return {...state};

@@ -6,14 +6,16 @@ import {
   ResourceList,
   TextStyle,
 } from "@shopify/polaris";
-import './App.css';
+import "./App.css";
 import React, { useCallback, useMemo, useState } from "react";
 import { connect } from "react-redux";
 import { mapDispatchtoprops, mapStatetoprops } from "./Mapping";
 import { Autocomplete, Icon } from "@shopify/polaris";
 import { SearchMinor } from "@shopify/polaris-icons";
+import { useNavigate } from "react-router-dom";
 
 const Compo1 = (props) => {
+  const navigate = useNavigate()
   const [suggession, setSuggession] = useState([]);
   const [showProfileDiv, setShowProfileDiv] = useState(false);
   const [profileBox, setProfileBox] = useState({});
@@ -22,7 +24,7 @@ const Compo1 = (props) => {
   const fetch2API = async (url) => {
     const data = await fetch(url, {
       headers: {
-        authorization: "Bearer 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",
+        authorization: "Bearer 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",
       },
     });
     const result = await data.json();
@@ -37,7 +39,7 @@ const Compo1 = (props) => {
       const data = await fetch(url, {
         method: "GET",
         headers: {
-          authorization: "Bearer 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",
+          authorization :"Bearer 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"
         },
       });
       const result = await data.json();
@@ -58,20 +60,20 @@ const Compo1 = (props) => {
   const [options, setOptions] = useState(deselectedOptions);
 
   React.useEffect(() => {
-    console.log("Labels", selectedOptions);
     if (selectedOptions.length !== 0) {
       fetch(`https://api.github.com/users/${selectedOptions}`, {
         headers: {
-          authorization: "Bearer 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",
+          authorization: "Bearer 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",
         },
       })
         .then((result) => result.json())
-        .then((res) => setProfileBox(res))
-        .then(() => setShowProfileDiv(true));
+        .then((res) => {setProfileBox(res)})
+        .then(() => setShowProfileDiv(true))
+        // .then((res) => {props.personalpro(res)});
     }
   }, [selectedOptions]);
 
-  console.log(profileBox);
+console.log("props.personalpro",props.personalpro)
 
   const showprofile = (e) => {
     window.location.href = e;
@@ -94,6 +96,7 @@ const Compo1 = (props) => {
     [deselectedOptions]
   );
 
+  // React.useEffect(()=>{props.personalpro(profileBox)},[profileBox])
   const updateSelection = useCallback(
     (selected) => {
       setShowProfileDiv(false);
@@ -122,166 +125,166 @@ const Compo1 = (props) => {
 
   return (
     <>
-    <header className="App-header">
-      <div style={{ height: "125px", width: "550px" }}>
-        <Autocomplete
-          options={options}
-          selected={selectedOptions}
-          onSelect={updateSelection}
-          textField={textField}
-        />
-      </div>
-      {showProfileDiv === true ? (
-        <>
-          
-              <Card sectioned >
-                <ResourceList
-                  resourceName={{ singular: "customer", plural: "customers" }}
-                  items={[
-                    {
-                      url: profileBox["url"],
-                      avatarSource: profileBox["avatar_url"],
-                      name: profileBox["login"],
-                    },
-                  ]}
-                  renderItem={(item) => {
-                    const { id, url, avatarSource, name } = item;
-                    return (
-                      <ResourceItem
-                        verticalAlignment="center"
-                        id={id}
-                        // url={url}
-                        media={
-                          <Avatar
-                            customer
-                            size="large"
-                            name={name}
-                            source={avatarSource}
-                          />
-                        }
-                        accessibilityLabel={`View details for ${name}`}
-                        name={name}
-                      >
-                        <>
-                          <div>
-                            <h6>
-                              <TextStyle variation="strong">{name}</TextStyle>
-                            </h6>
-                            <div className="alldetails">
-                              <p className="head2">Learning to learn</p>
-                              <div className="threecolss">
-                                <p>{profileBox["followers"]} Followers</p>
-                                <p>{profileBox["following"]} Following</p>
-                                <p>{profileBox["public_repos"]} Repos</p>
-                              </div>
-                              <Button
-                                onClick={() => {
-                                  showprofile(profileBox["html_url"]);
-                                }}
-                                fullWidth
-                              >
-                                Show Profile
-                              </Button>{" "}
-                              &nbsp;
-                              <Button
-                                onClick={() => {
-                                  showprofile(profileBox["html_url"]);
-                                }}
-                                fullWidth
-                              >
-                                Show on GITHUB
-                              </Button>
+      <header className="App-header">
+        <div style={{ height: "125px", width: "550px" }}>
+          <Autocomplete
+            options={options}
+            selected={selectedOptions}
+            onSelect={updateSelection}
+            textField={textField}
+          />
+        </div>
+        {showProfileDiv === true ? (
+          <>
+            <Card sectioned>
+              <ResourceList
+                resourceName={{ singular: "customer", plural: "customers" }}
+                items={[
+                  {
+                    url: profileBox["url"],
+                    avatarSource: profileBox["avatar_url"],
+                    name: profileBox["login"],
+                  },
+                ]}
+                renderItem={(item) => {
+                  const { id, url, avatarSource, name } = item;
+                  return (
+                    <ResourceItem
+                      verticalAlignment="center"
+                      id={id}
+                      // url={url}
+                      media={
+                        <Avatar
+                          customer
+                          size="large"
+                          name={name}
+                          source={avatarSource}
+                        />
+                      }
+                      accessibilityLabel={`View details for ${name}`}
+                      name={name}
+                    >
+                      <>
+                        <div>
+                          <h6>
+                            <TextStyle variation="strong">{name}</TextStyle>
+                          </h6>
+                          <div className="alldetails">
+                            <p className="head2">Learning to learn</p>
+                            <div className="threecolss">
+                              <p>{profileBox["followers"]} Followers</p>
+                              <p>{profileBox["following"]} Following</p>
+                              <p>{profileBox["public_repos"]} Repos</p>
                             </div>
+                            <Button
+                              onClick={() => {
+                                navigate("/profile")
+                              }}
+                              fullWidth
+                            >
+                              Show Profile
+                            </Button>{" "}
+                            &nbsp;
+                            <Button
+                              onClick={() => {
+                                showprofile(profileBox["html_url"]);
+                              }}
+                              fullWidth
+                            >
+                              Show on GITHUB
+                            </Button>
                           </div>
-                        </>
-                      </ResourceItem>
-                    );
-                  }}
-                />
-              </Card>
-        </>
-      ) : (
-        <>
-          {props.userprofile.map((i, index) => {
-            return (
-              <Card sectioned key={index}>
-                <ResourceList
-                  resourceName={{ singular: "customer", plural: "customers" }}
-                  items={[
-                    {
-                      id: index,
-                      url: i.url,
-                      avatarSource: i.avatar_url,
-                      name: i.login,
-                    },
-                  ]}
-                  renderItem={(item) => {
-                    const { id, url, avatarSource, name } = item;
-                    return (
-                      <ResourceItem
-                        verticalAlignment="center"
-                        id={id}
-                        // url={url}
-                        media={
-                          <Avatar
-                            customer
-                            size="large"
-                            name={name}
-                            source={avatarSource}
-                          />
-                        }
-                        accessibilityLabel={`View details for ${name}`}
-                        name={name}
-                      >
-                        <>
-                          {/* {props.userprofile.map((mahaitem, index2) => {
+                        </div>
+                      </>
+                    </ResourceItem>
+                  );
+                }}
+              />
+            </Card>
+          </>
+        ) : (
+          <>
+            {props.userprofile.map((i, index) => {
+              return (
+                <Card sectioned key={index}>
+                  <ResourceList
+                    resourceName={{ singular: "customer", plural: "customers" }}
+                    items={[
+                      {
+                        id: index,
+                        url: i.url,
+                        avatarSource: i.avatar_url,
+                        name: i.login,
+                      },
+                    ]}
+                    renderItem={(item) => {
+                      const { id, url, avatarSource, name } = item;
+                      return (
+                        <ResourceItem
+                          verticalAlignment="center"
+                          id={id}
+                          // url={url}
+                          media={
+                            <Avatar
+                              customer
+                              size="large"
+                              name={name}
+                              source={avatarSource}
+                            />
+                          }
+                          accessibilityLabel={`View details for ${name}`}
+                          name={name}
+                        >
+                          <>
+                            {/* {props.userprofile.map((mahaitem, index2) => {
                         if (mahaitem.login === i.login) {
                           return ( */}
-                          <div key={index}>
-                            <h6>
-                              <TextStyle variation="strong">{name}</TextStyle>
-                            </h6>
-                            <div className="alldetails">
-                              <p className="head2">Learning to learn</p>
-                              <div className="threecolss">
-                                <p>{i.followers} Followers</p>
-                                <p>{i.following} Following</p>
-                                <p>{i.public_repos} Repos</p>
+                            <div key={index}>
+                              <h6>
+                                <TextStyle variation="strong">{name}</TextStyle>
+                              </h6>
+                              <div className="alldetails">
+                                <p className="head2">Learning to learn</p>
+                                <div className="threecolss">
+                                  <p>{i.followers} Followers</p>
+                                  <p>{i.following} Following</p>
+                                  <p>{i.public_repos} Repos</p>
+                                </div>
+                                {/* <Button
+                                  onClick={() => {
+                                    navigate("/profile")
+                                  }}
+                                  fullWidth
+                                >
+                                  Show Profile
+                                </Button> */}
+                                &nbsp;
+                                <Button
+                                  onClick={() => {
+                                    showprofile(i.html_url);
+                                  }}
+                                  fullWidth
+                                >
+                                  Show on GITHUB
+                                </Button>
                               </div>
-                              <Button
-                                onClick={() => {
-                                  showprofile(i.html_url);
-                                }}
-                                fullWidth
-                              >
-                                Show Profile
-                              </Button>{" "}
-                              &nbsp;
-                              <Button
-                                onClick={() => {
-                                  showprofile(i.html_url);
-                                }}
-                                fullWidth
-                              >
-                                Show on GITHUB
-                              </Button>
                             </div>
-                          </div>
-                          {/* );
+                            {/* );
                         }
                       })} */}
-                        </>
-                      </ResourceItem>
-                    );
-                  }}
-                />
-              </Card>
-            );
-          })}
-        </>
-      )}
-     </header></>
-   );
+                          </>
+                        </ResourceItem>
+                      );
+                    }}
+                  />
+                </Card>
+              );
+            })}
+          </>
+        )}
+      </header>
+    </>
+  );
 };
 
 export default connect(mapStatetoprops, mapDispatchtoprops)(Compo1);

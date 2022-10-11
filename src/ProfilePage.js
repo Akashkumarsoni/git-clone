@@ -1,4 +1,4 @@
-import { Badge, Button, Card, Page, Tabs, TopBar } from "@shopify/polaris";
+import { Badge, Button, Card, Icon, Page, Tabs, TopBar } from "@shopify/polaris";
 import React, { useCallback, useState } from "react";
 import "./Profile.css";
 import PeopleIcon from "@mui/icons-material/People";
@@ -145,25 +145,94 @@ const ProfilePage = () => {
               onSelect={handleTabChange}
               fitted
             >
-              <Card title={tabs[selected].content}>
-                {/* <p>Tab {selected} selected</p> */}
+              <Card>
                 <>
                   {selected === 0 && (
                     <>
                       <Page>
-                        <span>
-                        <Card>
+                        <div className="paddingdiv">
                           <p className="sayhii">Hii, I'm Tiger Shroff</p>
-                        </Card>
-                        </span>
+                          <div className="paddingdivin">
+                            <p className="nameofuser">TIGER Shroff</p>
+                            <p className="aboutusr">
+                              Lorem Ipsum is simply dummy text of the printing
+                              and typesetting industry.
+                            </p>
+                          </div>
+                          <p className="aboutcontent">
+                            Lorem Ipsum is simply dummy text of the printing and
+                            typesetting industry. Lorem Ipsum has been the
+                            industry's standard dummy text ever since the 1500s,
+                            when an unknown printer took a galley of type and
+                            scrambled it to make a type specimen book. It has
+                            survived not only five centuries, but also the leap
+                            into electronic typesetting, remaining essentially
+                            unchanged. It was popularised in the 1960s with the
+                            release of Letraset sheets containing Lorem Ipsum
+                            passages, and more recently with desktop publishing
+                            software like Aldus PageMaker including versions of
+                            Lorem Ipsum.
+                          </p>
+                        </div>
                       </Page>
                     </>
                   )}
                 </>
 
-                <>{selected === 1 && <>AAKASH2</>}</>
+                <>
+                  {selected === 1 && (
+                    <>
+                      <Page>
+                        <hr />
+                        <div className="repodiv">
+                          <p className="reponame">repo_name</p>
+                          <Button
+                            
+                            connectedDisclosure={{
+                              accessibilityLabel: "Other save actions",
+                              actions: [{ content: "Save as draft" }],
+                            }}
+                          >
+                            <i class="fa-regular fa-star"></i>&nbsp;
+                            Save
+                          </Button>
+                        </div>
 
-                <>{selected === 2 && <>AAKASH3</>}</>
+                        <hr />
+                        <div className="repodiv">
+                          <p className="reponame">repo_name</p>
+                          <Button
+                            
+                            connectedDisclosure={{
+                              accessibilityLabel: "Other save actions",
+                              actions: [{ content: "Save as draft" }],
+                            }}
+                          >
+                            <i class="fa-regular fa-star"></i>&nbsp;
+                            Save
+                          </Button>
+                        </div>
+
+                        <hr />
+                        <div className="repodiv">
+                          <p className="reponame">repo_name</p>
+                          <Button
+                            
+                            connectedDisclosure={{
+                              accessibilityLabel: "Other save actions",
+                              actions: [{ content: "Save as draft" }],
+                            }}
+                          >
+                            <i class="fa-regular fa-star"></i>&nbsp;
+                            Save
+                          </Button>
+                        </div>
+                      </Page>
+                    </>
+                  )}
+                </>
+
+                <>{selected === 2 && <><p className="noprojects">No projects available</p></>}</>
               </Card>
             </Tabs>
           </Card>

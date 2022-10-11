@@ -117,8 +117,50 @@
 .biodetail{
     margin: 20px 0px;
 }
-.Polaris-Tabs__Tab Polaris-Tabs__Tab--selected{
-    border: 5px solid red;
+.paddingdiv{
+    padding: 20px;
+}
+.paddingdivin{
+    padding: 20px;
+    margin: 20px;
+    background-color: antiquewhite;
+}
+.sayhii{
+    font-size: 30px;
+    font-weight: bold;
+}
+.nameofuser{
+    font-size: 30px;
+    font-weight: bold;
+}
+.aboutusr{
+    margin: 20px;
+    font-size: 20px;
+}
+.aboutcontent{
+    font-size: 15px;
+    text-align: justify;
+    
+}
+.repodiv{
+    height: 60px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.reponame{
+    font-size: 25px;
+    font-weight: bolder;
+    color: #0969DA;
+    cursor: pointer;
+    margin: 10px 0px;
+}
+.reponame:hover{
+    text-decoration: underline;
+}
+.noprojects{
+    font-size: 40px;
+    padding: 20px;
 }
 @media screen and (max-width:750px) {
     .leftpart p{
