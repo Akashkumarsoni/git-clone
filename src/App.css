@@ -1,0 +1,43 @@
+
+
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.Polaris-Card__Section{
+  background-color: #E45370;
+}
+.Polaris-ResourceItem{
+  width: 500px;
+  background-color: #E45370;
+  border-radius: 5px;
+}
+.Polaris-ResourceItem__Container:hover{
+  background-color: #E45370;
+}
+.h6{
+  margin: 10px 10px;
+  font-size: 20px;
+}
+.head2{
+  margin: 10px 10px;
+  font-size: 15px;
+}
+
+.threecolss{
+  display: flex;
+  justify-content: space-between;
+  margin: 10px 10px;
+}
+.threecolss p{
+  font-size: 18px;
+  font-weight: bold;
+}
