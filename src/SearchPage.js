@@ -9,7 +9,7 @@ import {
 import "./App.css";
 import React, { useCallback, useMemo, useState } from "react";
 import { connect } from "react-redux";
-import { mapDispatchtoprops, mapStatetoprops } from "./Mapping";
+import { mapDispatchtoprops, mapStatetoprops } from "./redux/Mapping";
 import { Autocomplete, Icon } from "@shopify/polaris";
 import { SearchMinor } from "@shopify/polaris-icons";
 import { useNavigate } from "react-router-dom";
@@ -24,7 +24,7 @@ const Compo1 = (props) => {
   const fetch2API = async (url) => {
     const data = await fetch(url, {
       headers: {
-        authorization: "Bearer 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",
+        authorization: "Bearer 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",
       },
     });
     const result = await data.json();
@@ -39,7 +39,7 @@ const Compo1 = (props) => {
       const data = await fetch(url, {
         method: "GET",
         headers: {
-          authorization: "Bearer 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",
+          authorization: "Bearer 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",
         },
       });
       const result = await data.json();
@@ -64,7 +64,7 @@ const Compo1 = (props) => {
       const fetchdata = async()=>{
         const fet = await fetch(`https://api.github.com/users/${selectedOptions}`, {
         headers: {
-          authorization: "Bearer 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",
+          authorization: "Bearer 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",
         },
       })
       const response = await fet.json();

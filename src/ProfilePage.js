@@ -12,7 +12,7 @@ import "./Profile.css";
 import PeopleIcon from "@mui/icons-material/People";
 import StarOutlineIcon from "@mui/icons-material/StarOutline";
 import { connect } from "react-redux";
-import { mapDispatchtoprops, mapStatetoprops } from "./Mapping";
+import { mapDispatchtoprops, mapStatetoprops } from "./redux/Mapping";
 const ProfilePage = (props) => {
   console.log(props.personalprofile);
   const [searchValue, setSearchValue] = useState("");
@@ -26,7 +26,7 @@ const ProfilePage = (props) => {
       const data = await fetch(url, {
         method: "GET",
         headers: {
-          authorization: "Bearer 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",
+          authorization: "Bearer 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",
         },
       });
       const result = await data.json();
