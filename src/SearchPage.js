@@ -24,7 +24,7 @@ const Compo1 = (props) => {
   const fetch2API = async (url) => {
     const data = await fetch(url, {
       headers: {
-        authorization: "Bearer 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",
+        authorization: "Bearer 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",
       },
     });
     const result = await data.json();
@@ -39,7 +39,7 @@ const Compo1 = (props) => {
       const data = await fetch(url, {
         method: "GET",
         headers: {
-          authorization: "Bearer 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",
+          authorization: "Bearer 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",
         },
       });
       const result = await data.json();
@@ -61,31 +61,22 @@ const Compo1 = (props) => {
 
   React.useEffect(() => {
     if (selectedOptions.length !== 0) {
-      // fetch(`https://api.github.com/users/${selectedOptions}`, {
-      //   headers: {
-      //     authorization: "Bearer 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",
-      //   },
-      // })
-      //   .then((result) => result.json())
-      //   .then((res) => {
-      //     setProfileBox(res);
-      //   })
-      //   .then(() => setShowProfileDiv(true));
       const fetchdata = async()=>{
         const fet = await fetch(`https://api.github.com/users/${selectedOptions}`, {
         headers: {
-          authorization: "Bearer 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",
+          authorization: "Bearer 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",
         },
       })
       const response = await fet.json();
       setProfileBox(response);
       setShowProfileDiv(true);
-      props.personalpro()
+      props.fetching_personal_data(response);
       }
+      fetchdata()
     }
   }, [selectedOptions]);
 
-  console.log("props.personalpro", props.personalpro);
+  console.log("props.fetching_personal_data", props.personalprofile);
 
   const showprofile = (e) => {
     window.location.href = e;
@@ -164,7 +155,6 @@ const Compo1 = (props) => {
                     <ResourceItem
                       verticalAlignment="center"
                       id={id}
-                      // url={url}
                       media={
                         <Avatar
                           customer
@@ -248,9 +238,7 @@ const Compo1 = (props) => {
                           name={name}
                         >
                           <>
-                            {/* {props.userprofile.map((mahaitem, index2) => {
-                        if (mahaitem.login === i.login) {
-                          return ( */}
+                           
                             <div key={index}>
                               <h6>
                                 <TextStyle variation="strong">{name}</TextStyle>
@@ -281,9 +269,7 @@ const Compo1 = (props) => {
                                 </Button>
                               </div>
                             </div>
-                            {/* );
-                        }
-                      })} */}
+                           
                           </>
                         </ResourceItem>
                       );

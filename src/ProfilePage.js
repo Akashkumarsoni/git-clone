@@ -1,13 +1,40 @@
-import { Badge, Button, Card, Icon, Page, Tabs, TopBar } from "@shopify/polaris";
+import {
+  Badge,
+  Button,
+  Card,
+  Icon,
+  Page,
+  Tabs,
+  TopBar,
+} from "@shopify/polaris";
 import React, { useCallback, useState } from "react";
 import "./Profile.css";
 import PeopleIcon from "@mui/icons-material/People";
 import StarOutlineIcon from "@mui/icons-material/StarOutline";
-const ProfilePage = () => {
+import { connect } from "react-redux";
+import { mapDispatchtoprops, mapStatetoprops } from "./Mapping";
+const ProfilePage = (props) => {
+  console.log(props.personalprofile);
   const [searchValue, setSearchValue] = useState("");
   const [isSearchActive, setIsSearchActive] = useState(false);
   const [selected, setSelected] = useState(0);
+  const [gitrepos, setGitrepos] = useState([]);
 
+  React.useEffect(() => {
+    const url = props.personalprofile["repos_url"];
+    const fetchAPI = async () => {
+      const data = await fetch(url, {
+        method: "GET",
+        headers: {
+          authorization: "Bearer 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",
+        },
+      });
+      const result = await data.json();
+      setGitrepos(result);
+      console.log(result);
+    };
+    fetchAPI();
+  }, []);
   const handleTabChange = useCallback(
     (selectedTabIndex) => setSelected(selectedTabIndex),
     []
@@ -22,7 +49,8 @@ const ProfilePage = () => {
       id: "accepts-marketing-fitted-3",
       content: (
         <span>
-          Repositories <Badge status="new">4000</Badge>
+          Repositories{" "}
+          <Badge status="new">{props.personalprofile["public_repos"]}</Badge>
         </span>
       ),
     },
@@ -30,7 +58,7 @@ const ProfilePage = () => {
       id: "dfgdfgdfg",
       content: (
         <span>
-          Projects <Badge status="new">400</Badge>
+          Projects <Badge status="new">0</Badge>
         </span>
       ),
     },
@@ -73,10 +101,7 @@ const ProfilePage = () => {
               class="fa-solid fa-plus"
               style={{ color: "white", fontSize: "25px" }}
             ></i>
-            <img
-              alt=""
-              src="https://static.toiimg.com/thumb/msid-91130736,width-900,height-1200,resizemode-6.cms"
-            />
+            <img alt="" src={props.personalprofile["avatar_url"]} />
           </div>
         </div>
       </div>
@@ -85,11 +110,11 @@ const ProfilePage = () => {
         <div className="leftcontent">
           <img
             alt=""
-            src="https://static.toiimg.com/thumb/msid-91130736,width-900,height-1200,resizemode-6.cms"
+            src={props.personalprofile["avatar_url"]}
             className="profilepic"
           />
-          <p className="realname">Tiger Shroff</p>
-          <p className="username">tiger_shroff</p>
+          <p className="realname">{props.personalprofile["name"]}</p>
+          <p className="username">{props.personalprofile["login"]}</p>
           <p className="about">
             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
             eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
@@ -102,8 +127,9 @@ const ProfilePage = () => {
           </div>
           <div className="follows">
             <PeopleIcon />
-            &nbsp; 800 Followers&nbsp; 23 Following&nbsp;.&nbsp;
-            <StarOutlineIcon /> 229
+            &nbsp; {props.personalprofile["followers"]} Followers&nbsp;{" "}
+            {props.personalprofile["following"]} Following&nbsp;.&nbsp;
+            <StarOutlineIcon /> {props.personalprofile["public_repos"]}
           </div>
           <div className="biodetail">
             <span className="rowss">
@@ -111,7 +137,7 @@ const ProfilePage = () => {
                 class="fa-solid fa-location-dot"
                 style={{ fontSize: "20px" }}
               ></i>
-              &nbsp;:&nbsp;&nbsp; Lorem ipsum dolor sit amet
+              &nbsp;:&nbsp;&nbsp; {props.personalprofile["location"]}
             </span>
 
             <span className="rowss">
@@ -119,7 +145,7 @@ const ProfilePage = () => {
                 class="fa-regular fa-envelope"
                 style={{ fontSize: "20px" }}
               ></i>
-              &nbsp;:&nbsp;&nbsp; Lorem ipsum dolor sit amet
+              &nbsp;:&nbsp;&nbsp;{props.personalprofile["email"]}
             </span>
 
             <span className="rowss">
@@ -127,12 +153,12 @@ const ProfilePage = () => {
                 class="fa-sharp fa-solid fa-link"
                 style={{ fontSize: "20px" }}
               ></i>
-              &nbsp;:&nbsp;&nbsp; Lorem ipsum dolor sit amet
+              &nbsp;:&nbsp;&nbsp; {props.personalprofile["company"]}
             </span>
 
             <span className="rowss">
               <i class="fa-brands fa-twitter" style={{ fontSize: "20px" }}></i>
-              &nbsp;:&nbsp;&nbsp; Lorem ipsum dolor sit amet
+              &nbsp;:&nbsp;&nbsp; {props.personalprofile["twitter_username"]}
             </span>
           </div>
         </div>
@@ -151,9 +177,13 @@ const ProfilePage = () => {
                     <>
                       <Page>
                         <div className="paddingdiv">
-                          <p className="sayhii">Hii, I'm Tiger Shroff</p>
+                          <p className="sayhii">
+                            Hii, I'm {props.personalprofile["name"]}
+                          </p>
                           <div className="paddingdivin">
-                            <p className="nameofuser">TIGER Shroff</p>
+                            <p className="nameofuser">
+                              {props.personalprofile["name"]}
+                            </p>
                             <p className="aboutusr">
                               Lorem Ipsum is simply dummy text of the printing
                               and typesetting industry.
@@ -182,57 +212,36 @@ const ProfilePage = () => {
                 <>
                   {selected === 1 && (
                     <>
-                      <Page>
-                        <hr />
-                        <div className="repodiv">
-                          <p className="reponame">repo_name</p>
-                          <Button
-                            
-                            connectedDisclosure={{
-                              accessibilityLabel: "Other save actions",
-                              actions: [{ content: "Save as draft" }],
-                            }}
-                          >
-                            <i class="fa-regular fa-star"></i>&nbsp;
-                            Save
-                          </Button>
-                        </div>
+                      {gitrepos.map((k, index) => {
+                        return (
+                          <Page>
+                            <div className="repodiv">
+                              <p className="reponame">{k.name}</p>
 
-                        <hr />
-                        <div className="repodiv">
-                          <p className="reponame">repo_name</p>
-                          <Button
-                            
-                            connectedDisclosure={{
-                              accessibilityLabel: "Other save actions",
-                              actions: [{ content: "Save as draft" }],
-                            }}
-                          >
-                            <i class="fa-regular fa-star"></i>&nbsp;
-                            Save
-                          </Button>
-                        </div>
-
-                        <hr />
-                        <div className="repodiv">
-                          <p className="reponame">repo_name</p>
-                          <Button
-                            
-                            connectedDisclosure={{
-                              accessibilityLabel: "Other save actions",
-                              actions: [{ content: "Save as draft" }],
-                            }}
-                          >
-                            <i class="fa-regular fa-star"></i>&nbsp;
-                            Save
-                          </Button>
-                        </div>
-                      </Page>
+                              <Button
+                                connectedDisclosure={{
+                                  accessibilityLabel: "Other save actions",
+                                  actions: [{ content: "Save as draft" }],
+                                }}
+                              >
+                                <i class="fa-regular fa-star"></i>&nbsp; Save
+                              </Button>
+                            </div>
+                            <hr />
+                          </Page>
+                        );
+                      })}
                     </>
                   )}
                 </>
 
-                <>{selected === 2 && <><p className="noprojects">No projects available</p></>}</>
+                <>
+                  {selected === 2 && (
+                    <>
+                      <p className="noprojects">No projects available</p>
+                    </>
+                  )}
+                </>
               </Card>
             </Tabs>
           </Card>
@@ -242,4 +251,4 @@ const ProfilePage = () => {
   );
 };
 
-export default ProfilePage;
+export default connect(mapStatetoprops, mapDispatchtoprops)(ProfilePage);

@@ -57,12 +57,13 @@
     display: flex;
 }
 .leftcontent{
+    
     background-color: #ddd6d6;
     width: 30%;
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
+    /* justify-content: center; */
 
 }
 .realname{
@@ -78,6 +79,7 @@
     cursor: pointer;
 }
 .profilepic{
+    margin-top: 50px;
     width: 200px;
     height: 200px;
     border-radius: 50%;
@@ -109,13 +111,15 @@
 }
 .rowss{
     display: flex;
-    justify-content: center;
+    justify-content: start;
     font-size: 16px;
     margin-top: 10px;
-    margin-left: -70px;
+    /* margin-left: -70px; */
 }
 .biodetail{
     margin: 20px 0px;
+    /* display: flex; */
+    /* justify-content: start; */
 }
 .paddingdiv{
     padding: 20px;
