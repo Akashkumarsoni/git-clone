@@ -22,11 +22,7 @@ const Compo1 = (props) => {
 
   let arr = [];
   const fetch2API = async (url) => {
-    const data = await fetch(url, {
-      headers: {
-        authorization: "Bearer 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",
-      },
-    });
+    const data = await fetch(url);
     const result = await data.json();
 
     arr = [...arr, result];
@@ -36,12 +32,7 @@ const Compo1 = (props) => {
   React.useEffect(() => {
     const url = "https://api.github.com/users";
     const fetchAPI = async () => {
-      const data = await fetch(url, {
-        method: "GET",
-        headers: {
-          authorization: "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",
-        },
-      });
+      const data = await fetch(url);
       const result = await data.json();
       props.fetching_all_data(result);
       let sugg = [];
@@ -64,23 +55,18 @@ const Compo1 = (props) => {
     if (selectedOptions.length !== 0) {
       const fetchdata = async () => {
         const fet = await fetch(
-          `https://api.github.com/users/${selectedOptions}`,
-          {
-            headers: {
-              authorization: "Bearer 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",
-            },
-          }
-        );
+          `https://api.github.com/users/${selectedOptions}`);
         const response = await fet.json();
         setProfileBox(response);
         setShowProfileDiv(true);
+        console.log(response)
         props.fetching_personal_data(response);
       };
       fetchdata();
     }
   }, [selectedOptions]);
 
-  console.log("props.fetching_personal_data", props.personalprofile);
+
 
   const showprofile = (e) => {
     window.location.href = e;
