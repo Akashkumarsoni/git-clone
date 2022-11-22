@@ -9,7 +9,7 @@ import {
 import "./App.css";
 import React, { useCallback, useMemo, useState } from "react";
 import { connect } from "react-redux";
-import { mapDispatchtoprops, mapStatetoprops } from "./redux/Mapping";
+import { mapDispatchtoprops, mapStatetoprops } from "./redux/git/Mapping";
 import { Autocomplete, Icon } from "@shopify/polaris";
 import { SearchMinor } from "@shopify/polaris-icons";
 import { useNavigate } from "react-router-dom";
@@ -39,12 +39,13 @@ const Compo1 = (props) => {
       const data = await fetch(url, {
         method: "GET",
         headers: {
-          authorization: "Bearer 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",
+          authorization: "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",
         },
       });
       const result = await data.json();
       props.fetching_all_data(result);
       let sugg = [];
+      console.log("Search page");
       result.map((i) => {
         fetch2API(`https://api.github.com/users/${i.login}`);
         sugg = [...sugg, { value: i.login, label: i.login }];
@@ -61,18 +62,21 @@ const Compo1 = (props) => {
 
   React.useEffect(() => {
     if (selectedOptions.length !== 0) {
-      const fetchdata = async()=>{
-        const fet = await fetch(`https://api.github.com/users/${selectedOptions}`, {
-        headers: {
-          authorization: "Bearer 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",
-        },
-      })
-      const response = await fet.json();
-      setProfileBox(response);
-      setShowProfileDiv(true);
-      props.fetching_personal_data(response);
-      }
-      fetchdata()
+      const fetchdata = async () => {
+        const fet = await fetch(
+          `https://api.github.com/users/${selectedOptions}`,
+          {
+            headers: {
+              authorization: "Bearer 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",
+            },
+          }
+        );
+        const response = await fet.json();
+        setProfileBox(response);
+        setShowProfileDiv(true);
+        props.fetching_personal_data(response);
+      };
+      fetchdata();
     }
   }, [selectedOptions]);
 
@@ -238,7 +242,6 @@ const Compo1 = (props) => {
                           name={name}
                         >
                           <>
-                           
                             <div key={index}>
                               <h6>
                                 <TextStyle variation="strong">{name}</TextStyle>
@@ -250,14 +253,6 @@ const Compo1 = (props) => {
                                   <p>{i.following} Following</p>
                                   <p>{i.public_repos} Repos</p>
                                 </div>
-                                {/* <Button
-                                  onClick={() => {
-                                    navigate("/profile")
-                                  }}
-                                  fullWidth
-                                >
-                                  Show Profile
-                                </Button> */}
                                 &nbsp;
                                 <Button
                                   onClick={() => {
@@ -269,7 +264,6 @@ const Compo1 = (props) => {
                                 </Button>
                               </div>
                             </div>
-                           
                           </>
                         </ResourceItem>
                       );

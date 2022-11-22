@@ -12,7 +12,7 @@ import "./Profile.css";
 import PeopleIcon from "@mui/icons-material/People";
 import StarOutlineIcon from "@mui/icons-material/StarOutline";
 import { connect } from "react-redux";
-import { mapDispatchtoprops, mapStatetoprops } from "./redux/Mapping";
+import { mapDispatchtoprops, mapStatetoprops } from "./redux/git/Mapping";
 const ProfilePage = (props) => {
   console.log(props.personalprofile);
   const [searchValue, setSearchValue] = useState("");
@@ -23,12 +23,7 @@ const ProfilePage = (props) => {
   React.useEffect(() => {
     const url = props.personalprofile["repos_url"];
     const fetchAPI = async () => {
-      const data = await fetch(url, {
-        method: "GET",
-        headers: {
-          authorization: "Bearer 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",
-        },
-      });
+      const data = await fetch(url);
       const result = await data.json();
       setGitrepos(result);
       console.log(result);
